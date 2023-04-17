@@ -1,0 +1,30 @@
+{
+  "name": "@hello-cities/web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@hello-worlds/core": "^0.0.8",
+    "@hello-worlds/planets": "^0.0.16",
+    "@react-three/fiber": "^8.12.1",
+    "rand-seed": "^1.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.9",
+    "three": "^0.151.3",
+    "ts-pattern": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/three": "^0.150.1",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  }
+}

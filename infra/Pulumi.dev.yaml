@@ -1,0 +1,11 @@
+# Only meant to be used inside Docker :)
+# That's why the path is strange
+
+config:
+  aws:region: us-west-2
+  cities.kenny.wtf:path: ../apps/web/dist
+  cities.kenny.wtf:zoneName: kenny.wtf
+  cities.kenny.wtf:targetDomain: cities.kenny.wtf
+  cities.kenny.wtf:includeWWW: true
+  cities.kenny.wtf:errorDocument: 404.html
+  cities.kenny.wtf:indexDocument: index.html
