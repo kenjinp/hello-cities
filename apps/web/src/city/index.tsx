@@ -494,12 +494,12 @@ export function CityDebug() {
       <>
         <ShowPatches city={city} />
         {/* <CityCircumference city={city} /> */}
-        {/* <WardDebug city={city} /> */}
+        <WardDebug city={city} />
         <WallDebug city={city} />
         <StreetDebug city={city} />
         <CityLabels city={city} />
         {/* <ShowCircumference city={city} /> */}
-        <ShowBorder city={city} />
+        {/* <ShowBorder city={city} /> */}
       </>
     ) : null
   }, [city])

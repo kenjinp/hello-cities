@@ -38,6 +38,8 @@ const minArray = <T>(arr: T[], predicate: (t: T) => number) => {
 
 export type Street = Polygon
 
+// Will be shuffled and added
+// gives me a game idea!
 const WARDS_DECK = [
   CraftsmenWard,
   CraftsmenWard,
@@ -131,8 +133,8 @@ export class CityModel {
 
     this.plazaNeeded = true //this.random.bool()
     // citadel stuff is a bit borked atm
-    this.citadelNeeded = false //this.random.bool()
-    this.wallsNeeded = true //this.random.bool()
+    this.citadelNeeded = this.random.bool()
+    this.wallsNeeded = this.random.bool()
     this.build()
 
     // errors can sometimes happen when building the city
@@ -502,6 +504,9 @@ export class CityModel {
       unassigned = unassigned.filter(p => p !== patch)
     }
 
+    // Central Districts, where the city formed around
+    // Might be interesting to add things like:
+    // temple, or military, or university as the centerpiece
     if (this.plaza) {
       this.plaza.ward = new Market(this, this.plaza)
 

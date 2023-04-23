@@ -11,7 +11,9 @@
   "dependencies": {
     "@hello-worlds/core": "^0.0.8",
     "@hello-worlds/planets": "^0.0.16",
+    "@react-three/drei": "^9.65.5",
     "@react-three/fiber": "^8.12.1",
+    "poisson-disk-sampling": "^2.3.1",
     "rand-seed": "^1.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -20,6 +22,7 @@
     "ts-pattern": "^4.2.2"
   },
   "devDependencies": {
+    "@types/poisson-disk-sampling": "^2.2.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@types/three": "^0.150.1",
