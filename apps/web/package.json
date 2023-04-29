@@ -11,6 +11,10 @@
   "dependencies": {
     "@hello-worlds/core": "^0.0.8",
     "@hello-worlds/planets": "^0.0.16",
+    "@hmans/react-toolbox": "^0.1.4",
+    "@hmans/signal": "^0.2.2",
+    "@javelin/ecs": "2.0.0-alpha.6",
+    "@javelin/react": "2.0.0-alpha.6",
     "@react-three/drei": "^9.65.5",
     "@react-three/fiber": "^8.12.1",
     "poisson-disk-sampling": "^2.3.1",
@@ -19,9 +23,11 @@
     "react-dom": "^18.2.0",
     "styled-components": "^5.3.9",
     "three": "^0.151.3",
-    "ts-pattern": "^4.2.2"
+    "ts-pattern": "^4.2.2",
+    "tunnel-rat": "^0.1.2"
   },
   "devDependencies": {
+    "@types/node": "^14",
     "@types/poisson-disk-sampling": "^2.2.1",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",

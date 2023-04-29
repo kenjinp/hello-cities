@@ -1,4 +1,4 @@
-import { DataTexture } from 'three';
+import { DataTexture, RGBAFormat } from 'three';
 
 export function addEdgeMaskToHeightmap(
 	heightmap: DataTexture,
@@ -6,7 +6,7 @@ export function addEdgeMaskToHeightmap(
 	height: number,
 	edgeMaskWidth: number
 ) {
-	const mask = new DataTexture(new Uint8Array(width * height * 4), width, height, THREE.RGBAFormat);
+	const mask = new DataTexture(new Uint8Array(width * height * 4), width, height, RGBAFormat);
 
 	const edgeMaskData = new Float32Array(width * height);
 	const halfEdgeMaskWidth = edgeMaskWidth / 2;
@@ -24,17 +24,17 @@ export function addEdgeMaskToHeightmap(
 	const maskData = mask.image.data;
 	for (let i = 0; i < width * height; i++) {
 		const edgeMaskValue = edgeMaskData[i];
-		maskData[i * 4] = edgeMaskValue * 255;
-		maskData[i * 4 + 1] = edgeMaskValue * 255;
-		maskData[i * 4 + 2] = edgeMaskValue * 255;
+		maskData[i * 4] = 255 - edgeMaskValue * 255;
+		maskData[i * 4 + 1] = 255 - edgeMaskValue * 255;
+		maskData[i * 4 + 2] = 255 - edgeMaskValue * 255;
 		maskData[i * 4 + 3] = 255;
 	}
 
 	// Multiply heightmap values with mask values
 	for (let i = 0; i < width * height; i++) {
-		const heightmapValue = heightmap.image.data[i] / 255;
+		const heightmapValue = heightmap.source.data.data[i] / 255;
 		const edgeMaskValue = edgeMaskData[i];
-		heightmap.image.data[i] = heightmapValue * edgeMaskValue * 255;
+		heightmap.image.data[i] = 255; // heightmapValue * edgeMaskValue * 255;
 	}
 
 	return heightmap;

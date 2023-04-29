@@ -5,6 +5,7 @@ import { BufferAttribute, Color, DataTexture, Euler, Vector2, Vector3 } from 'th
 import { Voronoi } from '../city/lib/math/Voronoi';
 import { sign } from '../city/lib/math/helpers';
 import { Patch } from '../city/lib/model/Patch';
+import { addEdgeMaskToHeightmap } from './AlphaMap';
 import { getPointsFromDensityMap } from './pointSampling';
 
 export const generateHeightMap = (width: number, height: number) => {
@@ -51,8 +52,9 @@ export const HeightmapPlane: React.FC<{ width?: number; height?: number }> = ({
 }) => {
 	const heightMap = useMemo(() => {
 		const h = generateHeightMap(width, height);
+		const m = addEdgeMaskToHeightmap(h, width, height, 50);
 		// const f = generateFlowMap(h, width, height, 1);
-		return h;
+		return m;
 	}, []);
 
 	console.log({ heightMap });
@@ -60,12 +62,12 @@ export const HeightmapPlane: React.FC<{ width?: number; height?: number }> = ({
 	return (
 		<>
 			<group rotation={new Euler(-Math.PI / 2, 0, 0)}>
-				{/* <mesh>
+				<mesh>
 					<planeBufferGeometry args={[width, height]} />
 					<meshBasicMaterial map={heightMap} />
-				</mesh> */}
+				</mesh>
 
-				<SamplePoints densityMap={heightMap} width={width} height={height} />
+				{/* <SamplePoints densityMap={heightMap} width={width} height={height} /> */}
 			</group>
 		</>
 	);
