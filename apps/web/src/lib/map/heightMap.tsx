@@ -46,10 +46,9 @@ export const generateHeightMap = (width: number, height: number) => {
 	return texture;
 };
 
-export const HeightmapPlane: React.FC<{ width?: number; height?: number }> = ({
-	width = 256,
-	height = 256
-}) => {
+export const HeightmapPlane: React.FC<
+	React.PropsWithChildren<{ width?: number; height?: number }>
+> = ({ width = 320, height = 320, children }) => {
 	const heightMap = useMemo(() => {
 		const h = generateHeightMap(width, height);
 		const m = addEdgeMaskToHeightmap(h, width, height, 50);
@@ -62,7 +61,8 @@ export const HeightmapPlane: React.FC<{ width?: number; height?: number }> = ({
 	return (
 		<>
 			<group rotation={new Euler(-Math.PI / 2, 0, 0)}>
-				<mesh>
+				{children}
+				<mesh position={new Vector3(0, 5_000, 0)} scale={new Vector3(1, 1, 1).multiplyScalar(50)}>
 					<planeBufferGeometry args={[width, height]} />
 					<meshBasicMaterial map={heightMap} />
 				</mesh>

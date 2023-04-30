@@ -1,25 +1,9 @@
-import { javelinAppContext, useApp } from '@javelin/react';
-import { useFrame } from '@react-three/fiber';
-import { useContext } from 'react';
-import { GameFSM } from './Game.FSM';
+import { GameFSM } from '../state/Game.FSM';
 import { Gameover } from './views/Gameover';
 import { Gameplay } from './views/Gameplay';
 import { Menu } from './views/Menu';
 
-export const Game: React.FC = () => {
-	const app = useApp();
-	const blah = useContext(javelinAppContext);
-
-	console.log({ app, blah });
-
-	useFrame(() => {
-		if (!app) {
-			console.log('no app');
-			return;
-		}
-		app.step();
-	});
-
+export const GameMenuState: React.FC = () => {
 	return (
 		<>
 			<GameFSM.Match state="menu">
@@ -30,9 +14,9 @@ export const Game: React.FC = () => {
 				<Gameplay />
 			</GameFSM.Match>
 
-      <GameFSM.Match state="gameover">
-        <Gameover />
-      </GameFSM.Match>
+			<GameFSM.Match state="gameover">
+				<Gameover />
+			</GameFSM.Match>
 		</>
 	);
 };

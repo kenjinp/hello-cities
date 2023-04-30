@@ -11,20 +11,26 @@
   "dependencies": {
     "@hello-worlds/core": "^0.0.8",
     "@hello-worlds/planets": "^0.0.16",
+    "@hello-worlds/react": "^0.0.17",
     "@hmans/react-toolbox": "^0.1.4",
     "@hmans/signal": "^0.2.2",
     "@javelin/ecs": "2.0.0-alpha.6",
     "@javelin/react": "2.0.0-alpha.6",
     "@react-three/drei": "^9.65.5",
     "@react-three/fiber": "^8.12.1",
+    "@tanstack/react-query": "^4.29.5",
     "poisson-disk-sampling": "^2.3.1",
     "rand-seed": "^1.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-top-loading-bar": "^2.3.1",
+    "statery": "^0.6.3",
     "styled-components": "^5.3.9",
     "three": "^0.151.3",
     "ts-pattern": "^4.2.2",
-    "tunnel-rat": "^0.1.2"
+    "tunnel-rat": "^0.1.2",
+    "use-sound": "^4.0.1",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "^14",

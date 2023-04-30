@@ -1,0 +1,31 @@
+:root {
+	--primary: #f5c247;
+	--secondary: #a6dcd5;
+	--fame: #fe48fc;
+	--exp: #faa244;
+	--pvp: #ea00ff;
+	--party: #2ed3f6;
+	--mana: #026ef4;
+	--grey: #5b858e;
+	--panel: rgba(16, 19, 29, 0.8);
+	--name: #dae8ea;
+	--spell: #e7d510;
+	--item: #e7d510;
+	--enemy: #f42929;
+	--health: #33d123;
+	--f0: #458bd9;
+	--f1: #c32929;
+	--f2: #a2a2a2;
+	--c0: #c7966f;
+	--c1: #21a9e1;
+	--c2: #98ce64;
+	--c3: #1c51ff;
+	--c4: #a35ac2;
+	--c5: #ad4f4f;
+	--clan: #ee960b;
+	--global: #ffcb9d;
+	--purp: #9e3bf9;
+	--blue: #0681ea;
+	--green: #34cb49;
+	--black: #10131d;
+}

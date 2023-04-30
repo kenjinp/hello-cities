@@ -8,3 +8,5 @@ dist-ssr
 .next
 out
 .next
+# using purchased assets for now, need to get something fit for open source!
+.wav

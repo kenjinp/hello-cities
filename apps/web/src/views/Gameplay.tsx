@@ -1,10 +1,8 @@
 import React from 'react';
-import { HeightmapPlane } from '../../map/heightMap';
-import { UITunnel } from '../UI.tunnel';
 
 import { useApp, useSystem } from '@javelin/react';
-import { GameFSM } from '../Game.FSM';
 import { Event, Turn } from '../ecs/ECS';
+import { GameFSM } from '../state/Game.FSM';
 
 const TurnButton: React.FC = () => {
 	const [turn, setTurn] = React.useState(null);
@@ -67,15 +65,16 @@ const TurnButton: React.FC = () => {
 };
 
 export const Gameplay: React.FC = () => {
-	return (
-		<>
-			<HeightmapPlane />
-			<UITunnel.In>
-				<h1>Game!!</h1>
-				<footer>
-					<TurnButton />
-				</footer>
-			</UITunnel.In>
-		</>
-	);
+	return null;
+	// <>
+	// 	<HeightmapPlane>
+	// 		<Terrain />
+	// 	</HeightmapPlane>
+	// 	<UITunnel.In>
+	// 		<h1>Game!!</h1>
+	// 		<footer>
+	// 			<TurnButton />
+	// 		</footer>
+	// 	</UITunnel.In>
+	// </>
 };

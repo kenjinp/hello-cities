@@ -1,22 +1,42 @@
-import * as j from '@javelin/ecs';
-import { Javelin, javelinAppContext } from '@javelin/react';
-import { useContextBridge } from '@react-three/drei';
-import './App.css';
-import { Game } from './game/Game';
-import { UITunnel } from './game/UI.tunnel';
-import { ECS } from './game/ecs/ECS';
-import { Scene } from './scene/Scene';
+import { LoadAssets } from '@components/load-assets/LoadAssets';
+import { Scene } from '@components/scene/Scene';
+import { UIIn, UIOut } from '@components/ui/UI';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { GameOptions } from '@views/GameOptions';
+import { Gameover } from '@views/Gameover';
+import { Menu } from '@views/Menu';
+import { GameFSM } from './state/Game.FSM';
 
-function JavelinContextBridgeWrapper({ children }) {
-	const ContextBridge = useContextBridge(javelinAppContext);
-	return <ContextBridge>{children}</ContextBridge>;
-}
+const queryClient = new QueryClient();
 
 function App() {
 	return (
-		<div className="App">
-			<Javelin app={j.app()}>
-				<ECS />
+		<div id="app">
+			<QueryClientProvider client={queryClient}>
+				<Scene>
+					<GameFSM.Match state="menu">
+						<Menu />
+					</GameFSM.Match>
+
+					<GameFSM.Match state="gameOptions">
+						<GameOptions />
+					</GameFSM.Match>
+
+					<GameFSM.Match state={['gameplay', 'gameover']}>
+						{/* <Gameplay /> */}
+
+						<GameFSM.Match state="gameover">
+							<Gameover />
+						</GameFSM.Match>
+					</GameFSM.Match>
+
+					<UIIn>
+						<LoadAssets />
+					</UIIn>
+				</Scene>
+				<UIOut />
+			</QueryClientProvider>
+			{/* <Javelin>
 				<Scene>
 					<JavelinContextBridgeWrapper>
 						<Game />
@@ -25,7 +45,7 @@ function App() {
 				<div id="ui">
 					<UITunnel.Out />
 				</div>
-			</Javelin>
+			</Javelin> */}
 		</div>
 	);
 }

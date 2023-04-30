@@ -1,0 +1,12 @@
+#ui {
+	padding: 2em;
+	position: relative;
+	z-index: 1;
+	pointer-events: none;
+	display: flex;
+	height: 100vh;
+	width: 100vw;
+	box-sizing: border-box;
+	justify-content: center;
+	align-items: center;
+}

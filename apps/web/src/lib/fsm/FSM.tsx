@@ -2,6 +2,7 @@ import { useRerender } from '@hmans/react-toolbox';
 import { Signal } from '@hmans/signal';
 import { ReactNode, useEffect } from 'react';
 
+// Directly copied from HMANS!!!
 export function makeFSM<
 	AvailableStates extends string,
 	State extends AvailableStates,
