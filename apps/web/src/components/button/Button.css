@@ -1,0 +1,63 @@
+button:focus:not(:disabled)::before,
+button.secondary:hover:not(:disabled)::before {
+	content: '';
+	position: absolute;
+	width: 150%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.4666666667);
+	background: var(--secondary);
+	opacity: 0.4;
+	animation: shine 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+button.primary:focus:not(:disabled)::before,
+button.primary:hover:not(:disabled)::before {
+	content: '';
+	position: absolute;
+	width: 150%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.4666666667);
+	background: var(--primary);
+	opacity: 0.4;
+	animation: shine 2.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+}
+
+button:hover:not(:disabled)::before {
+	animation-iteration-count: normal;
+}
+button {
+	transition: all 0.25s ease-in-out;
+	position: relative;
+	overflow: hidden;
+	border-radius: 8px;
+	border: 1px solid transparent;
+	padding: 0.6em 1.2em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: #1a1a1a;
+	cursor: pointer;
+	transition: border-color 0.25s;
+	pointer-events: auto;
+	color: var(--secondary);
+}
+button.primary {
+	color: var(--primary);
+}
+button:hover:not(:disabled) {
+	border-color: var(--secondary);
+}
+button.primary:hover:not(:disabled) {
+	border-color: var(--primary);
+}
+button:focus:not(:disabled),
+button:focus-visible:not(:disabled) {
+	outline: 2px solid var(--secondary);
+}
+button.primary:focus:not(:disabled),
+button.primary:focus-visible:not(:disabled) {
+	outline: 2px solid var(--primary);
+}
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

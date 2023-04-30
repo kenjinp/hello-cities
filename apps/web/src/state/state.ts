@@ -3,10 +3,12 @@ import { makeStore } from 'statery';
 
 export interface Store {
 	assets: GameData | null;
+  volume: number
 }
 
 export const store = makeStore<Store>({
-	assets: null
+	assets: null,
+  volume: 0.75
 });
 
 export const addAssetsToStore = (gameDataAssets: GameData) =>
@@ -17,3 +19,8 @@ export const addAssetsToStore = (gameDataAssets: GameData) =>
 			decks: gameDataAssets.decks
 		}
 	}));
+
+export const setVolume = (volume: number) => store.set(state => ({
+  ...state,
+  volume,
+}))

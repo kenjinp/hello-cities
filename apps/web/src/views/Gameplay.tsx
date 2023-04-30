@@ -1,80 +1,94 @@
+import { Button } from '@components/button/Button';
+import { UIIn } from '@components/ui/UI';
+import { Turn } from '@game/Game.entities';
+import { useHelloCitiesGame } from '@game/Game.react';
+import { Resource } from '@javelin/ecs/dist/declarations/src/resource';
+import { useSystem } from '@javelin/react';
+import { Html } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { GameFSM } from '@state/Game.FSM';
 import React from 'react';
 
-import { useApp, useSystem } from '@javelin/react';
-import { Event, Turn } from '../ecs/ECS';
-import { GameFSM } from '../state/Game.FSM';
-
-const TurnButton: React.FC = () => {
-	const [turn, setTurn] = React.useState(null);
-	const [disabled, setDisabled] = React.useState(false);
-	const app = useApp();
-
-	useSystem(world => {
-		let t = world.getResource(Turn);
-		if (!t) {
-			world.setResource(Turn, 0);
-		}
-
-		if (t > 10) {
-			GameFSM.transition('gameOver');
-			return;
-		}
-
-		if (t !== turn) {
-			setTurn(t);
-		}
-	});
-
+export const usePause = () => {
 	React.useEffect(() => {
-		return () => {
-			// cleanup game
-			console.log('cleanup game');
-			app.world.setResource(Turn, 0);
+		const escHandler = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				GameFSM.transition('pauseGame');
+			}
 		};
-	}, []);
-
-	useSystem(world => {
-		// dont allow the user to continue until all events have been acted on
-		let events = world.query(Event);
-
-		if (disabled !== !events.length) {
-			setDisabled(!events.length);
-		}
+		document.addEventListener('keydown', escHandler);
+		return () => {
+			document.removeEventListener('keydown', escHandler);
+		};
 	});
-
-	// increment resource
-
-	return (
-		<div className="turn-button">
-			<button
-				disabled={disabled}
-				onClick={() => {
-					// Todo, how to make this work better?
-					// Should be a system, or an action, that is seperated somehow
-					// maybe push events to the ECS world, or create entities that are processed like events?
-					let i = app.getResource(Turn);
-					console.log({ i });
-					i++;
-					app.world.setResource(Turn, i);
-				}}
-			>
-				Turn {turn}
-			</button>
-		</div>
-	);
 };
 
-export const Gameplay: React.FC = () => {
+function Game() {
+	const { game } = useHelloCitiesGame();
+
+	console.log('Hello cities game', game);
+
+	useFrame(() => {
+		game.update();
+	});
 	return null;
-	// <>
-	// 	<HeightmapPlane>
-	// 		<Terrain />
-	// 	</HeightmapPlane>
-	// 	<UITunnel.In>
-	// 		<h1>Game!!</h1>
-	// 		<footer>
-	// 			<TurnButton />
-	// 		</footer>
-	// 	</UITunnel.In>
-	// </>
+}
+
+function NextTurnButton() {
+	const { game } = useHelloCitiesGame();
+
+	const handleNextTurn = () => {
+		game?.doAction('doNextTurn');
+	};
+
+	const turn = useResource(Turn);
+
+	React.useEffect(() => {
+		if (turn > 10) {
+			GameFSM.transition('gameOver');
+		}
+	}, [turn]);
+
+	return (
+		<Button variant="primary" onClick={handleNextTurn}>
+			Next Turn | {turn}
+		</Button>
+	);
+}
+
+function useResource<T>(resource: Resource<T>) {
+	const [value, setValue] = React.useState<T>(null as any);
+	useSystem(world => {
+		const v = world.getResource(resource);
+		if (v !== value) {
+			setValue(v);
+		}
+	});
+	return value;
+}
+
+export const Gameplay: React.FC = () => {
+	// const { assets } = useStore(store);
+	// const gameOptions = useMemo(() => ({ mapOptions: {} }), []);
+	usePause();
+
+	const { game, reset } = useHelloCitiesGame();
+	React.useEffect(() => {
+		return reset;
+	}, []);
+
+	return (
+		<>
+			{/* <HeightmapPlane>
+			<Terrain />
+		</HeightmapPlane>
+		<UITunnel.In> */}
+			<Html></Html>
+			<Game />
+			<UIIn>
+				<h1>Game!!</h1>
+				<NextTurnButton />
+			</UIIn>
+		</>
+	);
 };

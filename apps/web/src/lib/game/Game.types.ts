@@ -1,11 +1,11 @@
 export type MapSize = 'small' | 'medium' | 'large';
 
 export interface MapOptions {
-	size: MapSize;
-	numberOfStreams: number;
-	numberOfRivers: number;
-	numberOfHighways: number;
-	coastPercentage: number;
+	size?: MapSize;
+	numberOfStreams?: number;
+	numberOfRivers?: number;
+	numberOfHighways?: number;
+	coastPercentage?: number;
 }
 
 export interface GameOptions {

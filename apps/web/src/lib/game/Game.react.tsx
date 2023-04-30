@@ -1,20 +1,37 @@
+import { Javelin } from '@javelin/react';
 import React, { createContext } from 'react';
 import { HelloCitiesGame } from './Game';
 import { GameData, GameOptions } from './Game.types';
 
-export const HelloCitiesGameContext: React.Context<HelloCitiesGame> = createContext(
-	{} as HelloCitiesGame
-);
+export interface GameContext {
+	game: HelloCitiesGame;
+	reset: VoidFunction;
+}
+
+export const HelloCitiesGameContext: React.Context<GameContext> = createContext({} as GameContext);
 
 export const HelloCitiesGameProvider: React.FC<
 	React.PropsWithChildren<{ options: GameOptions; data: GameData }>
 > = ({ children, options, data }) => {
-	const [game] = React.useState<HelloCitiesGame>(new HelloCitiesGame(options, data));
+	const [game, setGame] = React.useState<HelloCitiesGame>(new HelloCitiesGame(options, data));
 
 	React.useEffect(() => {
 		game.init();
 		return () => game.destroy();
 	}, []);
 
-	return <HelloCitiesGameContext.Provider value={game}>{children}</HelloCitiesGameContext.Provider>;
+	const reset = React.useCallback(() => {
+		game.destroy();
+		setGame(new HelloCitiesGame(options, data));
+	}, [options, data]);
+
+	return (
+		<HelloCitiesGameContext.Provider value={{ game, reset }}>
+			<Javelin app={game.app}>{children}</Javelin>
+		</HelloCitiesGameContext.Provider>
+	);
 };
+
+export function useHelloCitiesGame(): GameContext {
+	return React.useContext(HelloCitiesGameContext);
+}

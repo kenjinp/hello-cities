@@ -53,7 +53,7 @@ export const Menu: React.FC = () => {
 				{clickToStart ? (
 					<ul>
 						<li>
-							<Button onClick={startGame} disabled={!assets}>
+							<Button onClick={startGame} disabled={!assets} variant="primary">
 								Play
 							</Button>
 						</li>

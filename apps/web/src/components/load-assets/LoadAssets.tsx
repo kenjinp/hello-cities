@@ -22,11 +22,13 @@ export function LoadAssets({ loading, success, error }: LoadAssetsProps) {
 			},
 			{
 				queryKey: ['decks', 2],
-				queryFn: () => fetch('/data/cards.json').then(res => res.json()),
+				queryFn: () => fetch('/data/decks.json').then(res => res.json()),
 				staleTime: Infinity
 			}
 		]
 	});
+
+	console.log(cardsQuery.isSuccess && deckQuery.isSuccess);
 
 	React.useEffect(() => {
 		match({
@@ -55,7 +57,6 @@ export function LoadAssets({ loading, success, error }: LoadAssetsProps) {
 					success: true
 				},
 				() => {
-					console.log('good job!');
 					addAssetsToStore({
 						cards: cardsQuery.data,
 						decks: deckQuery.data
@@ -64,7 +65,7 @@ export function LoadAssets({ loading, success, error }: LoadAssetsProps) {
 				}
 			)
 			.run();
-	}, [cardsQuery, deckQuery]);
+	}, [cardsQuery, cardsQuery]);
 
 	return (
 		<>

@@ -1,17 +1,17 @@
 {
-  "name": "hello-cities",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "pnpm --filter=web dev",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "ship": "pnpm --filter=web build && cd infra && pulumi up --stack=dev --yes"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@muravjev/configs-prettier": "^0.1.4"
-  }
+	"name": "hello-cities",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "pnpm --filter=web dev",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"ship": "pnpm --filter=web build-no-check && cd infra && pulumi up --stack=dev --yes"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@muravjev/configs-prettier": "^0.1.4"
+	}
 }

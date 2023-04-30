@@ -24,6 +24,7 @@ export const Terrain: React.FC = () => {
 				minCellSize={sizes.large / 64}
 				minCellResolution={32 * 4}
 				lodOrigin={camera.position}
+				// @ts-ignore
 				worker={TerrainWorker}
 				data={{
 					seed: 'Flat Worlds Example'

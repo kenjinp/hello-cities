@@ -30,7 +30,9 @@ export const GameOptions: React.FC = () => {
 						}}
 					>
 						<Button onClick={cancelOptions}>Cancel</Button>
-						<Button onClick={startGame}>Start Game</Button>
+						<Button variant="primary" onClick={startGame}>
+							Start Game
+						</Button>
 					</div>
 				</div>
 			</div>
