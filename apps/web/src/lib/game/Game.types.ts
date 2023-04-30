@@ -1,5 +1,11 @@
 export type MapSize = 'small' | 'medium' | 'large';
 
+export const MapSizeToNumber = {
+	small: 4_000,
+	medium: 8_000,
+	large: 16_000
+};
+
 export interface MapOptions {
 	size?: MapSize;
 	numberOfStreams?: number;

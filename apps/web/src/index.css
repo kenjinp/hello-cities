@@ -40,8 +40,15 @@ li {
 	padding: 0.5rem 0;
 }
 
-h1 {
+h1,
+h2,
+h3 {
 	font-family: Diamonaire;
+}
+
+input,
+label {
+	pointer-events: auto;
 }
 
 h1.hero {
@@ -116,8 +123,9 @@ footer.main {
 	align-items: center;
 	border-radius: 1rem;
 	background: #0000002b;
-	width: 50vw;
-	min-height: 50vh;
+	min-width: 50vw;
+	max-width: 1084px;
+	width: 100%;
 	padding: 1rem;
 	backdrop-filter: blur(4px);
 }
