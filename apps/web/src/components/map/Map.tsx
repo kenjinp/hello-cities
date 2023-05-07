@@ -3,7 +3,10 @@ import * as React from 'react';
 import { match } from 'ts-pattern';
 import MapWorker from './Map.worker?worker';
 
-function RegionMapInner(props: MapOptions, forwardedRef: React.ForwardedRef<HTMLCanvasElement>) {
+function RegionMapInner(
+	props: MapOptions & { seed: string },
+	forwardedRef: React.ForwardedRef<HTMLCanvasElement>
+) {
 	const offscreen = React.useRef<OffscreenCanvas>(null);
 	const [mapWorker] = React.useState(new MapWorker());
 	const ref = React.useRef<HTMLCanvasElement>(null);
@@ -13,6 +16,7 @@ function RegionMapInner(props: MapOptions, forwardedRef: React.ForwardedRef<HTML
 	console.log({ props });
 
 	React.useEffect(() => {
+		console.log("rerender canvas")
 		const canvasRef = ref.current;
 		const offscreenRef = offscreen.current;
 		if (canvasRef) {

@@ -18,6 +18,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"@components/*": ["src/components/*"],
+			"@hooks/*": ["src/hooks/*"],
 			"@game/*": ["src/lib/game/*"],
 			"@lib/*": ["src/lib/*"],
 			"@views/*": ["src/views/*"],

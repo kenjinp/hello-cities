@@ -75,10 +75,12 @@ importers:
       '@types/react-dom': ^18.0.11
       '@types/three': ^0.150.1
       '@vitejs/plugin-react-swc': ^3.0.0
+      lodash: ^4.17.21
       poisson-disk-sampling: ^2.3.1
       rand-seed: ^1.0.2
       react: ^18.2.0
       react-dom: ^18.2.0
+      react-nil: ^1.2.0
       react-top-loading-bar: ^2.3.1
       statery: ^0.6.3
       styled-components: ^5.3.9
@@ -100,10 +102,12 @@ importers:
       '@react-three/drei': 9.65.5_kklbs3tbipsvom7lb5cx5ktbgm
       '@react-three/fiber': 8.12.1_42od2y7wbz57ukb7jorrhqe6ja
       '@tanstack/react-query': 4.29.5_biqbaboplfbrettd7655fr4n2y
+      lodash: 4.17.21
       poisson-disk-sampling: 2.3.1
       rand-seed: 1.0.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-nil: 1.2.0_react@18.2.0
       react-top-loading-bar: 2.3.1_react@18.2.0
       statery: 0.6.3_react@18.2.0
       styled-components: 5.3.9_7i5myeigehqah43i5u7wbekgba
@@ -6302,6 +6306,16 @@ packages:
 
   /react-merge-refs/1.1.0:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==}
+    dev: false
+
+  /react-nil/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-54yJ8+vFyJlZHiFBLny0RKQ0/FSG32y8pZt0oV7duxaW3lEM9pc6D2Hhnvu0TToJKPCAJ/A5XmjY8nDETxrrGg==}
+    peerDependencies:
+      react: '>=18.0'
+    dependencies:
+      '@types/react-reconciler': 0.26.7
+      react: 18.2.0
+      react-reconciler: 0.27.0_react@18.2.0
     dev: false
 
   /react-reconciler/0.27.0_react@18.2.0:

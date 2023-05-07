@@ -1,10 +1,11 @@
+import { MapElevationToNumber, MapOptions } from '@game/Game.types';
 import {
 	ChunkGenerator3Initializer,
 	ColorArrayWithAlpha,
-	createThreadedFlatWorldWorker,
 	DEFAULT_NOISE_PARAMS,
+	NOISE_TYPES,
 	Noise,
-	NOISE_TYPES
+	createThreadedFlatWorldWorker
 } from '@hello-worlds/planets';
 import { Color, MathUtils } from 'three';
 
@@ -12,12 +13,16 @@ export type ThreadParams = {
 	seed: string;
 };
 
-const heightGenerator: ChunkGenerator3Initializer<ThreadParams, number> = ({ data: { seed } }) => {
+const heightGenerator: ChunkGenerator3Initializer<ThreadParams, number> = ({
+	data: { seed, elevation }
+}: {
+	data: MapOptions;
+}) => {
 	const warp = new Noise({
 		...DEFAULT_NOISE_PARAMS,
 		octaves: 2,
 		seed,
-		height: 1000,
+		height: MapElevationToNumber[elevation] * 1000,
 		scale: 3000,
 		noiseType: NOISE_TYPES.BILLOWING
 	});
@@ -25,7 +30,7 @@ const heightGenerator: ChunkGenerator3Initializer<ThreadParams, number> = ({ dat
 	const mountains = new Noise({
 		...DEFAULT_NOISE_PARAMS,
 		seed,
-		height: 2000,
+		height: MapElevationToNumber[elevation] * 1000,
 		scale: 3000
 	});
 

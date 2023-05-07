@@ -49,6 +49,7 @@ h3 {
 input,
 label {
 	pointer-events: auto;
+	cursor: pointer;
 }
 
 h1.hero {

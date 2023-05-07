@@ -1,34 +1,26 @@
 import { FlatWorld } from '@hello-worlds/react';
 import { useThree } from '@react-three/fiber';
 import * as React from 'react';
-import { Vector3 } from 'three';
+import { Euler, Vector3 } from 'three';
 
+import { MapOptions, MapSizeToNumber } from '@game/Game.types';
 import TerrainWorker from './Terrain.worker?worker';
 
-const sizes = {
-	small: 4_000,
-	medium: 8_000,
-	large: 16_000 // size of canton geneva
-};
-
-export const Terrain: React.FC = () => {
+export const Terrain: React.FC<{ mapOptions: Partial<MapOptions> }> = ({ mapOptions }) => {
+	const { size = 'small', seed = 'hello cities', elevation = 'flat' } = mapOptions;
 	const camera = useThree(s => s.camera);
 	return (
 		// Rotate World so it's along the x axis
-		<group
-		// rotation={new Euler().setFromVector3(new Vector3(-Math.PI / 2, 0, 0))}
-		>
+		<group rotation={new Euler(-Math.PI / 2, 0, 0)}>
 			<FlatWorld
 				position={new Vector3()}
-				size={sizes.large}
-				minCellSize={sizes.large / 64}
+				size={MapSizeToNumber[size]}
+				minCellSize={MapSizeToNumber[size] / 64}
 				minCellResolution={32 * 4}
 				lodOrigin={camera.position}
 				// @ts-ignore
 				worker={TerrainWorker}
-				data={{
-					seed: 'Flat Worlds Example'
-				}}
+				data={{ size, seed, elevation }}
 			>
 				<meshStandardMaterial vertexColors side={2} />
 			</FlatWorld>

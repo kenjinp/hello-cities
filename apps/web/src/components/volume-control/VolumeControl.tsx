@@ -6,14 +6,15 @@ import './VolumeControl.css';
 
 export const VolumeControl: React.FC = () => {
 	const { volume } = useStore(store);
-	const [mute, setMute] = React.useState(false);
+	const [mute, setMute] = React.useState(volume === 0 || false);
 	const [previousVolume, setPreviousVolume] = React.useState(volume);
 
 	React.useEffect(() => {
 		if (mute) {
 			setPreviousVolume(volume);
 		}
-		setVolume(mute ? 0 : previousVolume);
+		const adjustedNewVolume = previousVolume == 0 ? 0.5 : previousVolume;
+		setVolume(mute ? 0 : adjustedNewVolume);
 	}, [mute]);
 
 	return (

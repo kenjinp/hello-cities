@@ -3,12 +3,26 @@ import { makeStore } from 'statery';
 
 export interface Store {
 	assets: GameData | null;
-  volume: number
+	volume: number;
 }
+
+const localStore = JSON.parse(localStorage.getItem('store')) as Store;
+
+const defaultVolume = 0.5;
 
 export const store = makeStore<Store>({
 	assets: null,
-  volume: 0.75
+	volume: Number.isFinite(localStore?.volume) ? localStore.volume : defaultVolume
+});
+
+store.subscribe((a, b) => {
+	localStorage.setItem(
+		'store',
+		JSON.stringify({
+			...b,
+			...a
+		})
+	);
 });
 
 export const addAssetsToStore = (gameDataAssets: GameData) =>
@@ -20,7 +34,8 @@ export const addAssetsToStore = (gameDataAssets: GameData) =>
 		}
 	}));
 
-export const setVolume = (volume: number) => store.set(state => ({
-  ...state,
-  volume,
-}))
+export const setVolume = (volume: number) =>
+	store.set(state => ({
+		...state,
+		volume
+	}));

@@ -21,7 +21,7 @@ export function addEdgeMaskToHeightmap(
 	}
 
 	// Set mask texture data based on edge mask values
-	const maskData = mask.image.data;
+	const maskData = mask.source.data.data;
 	for (let i = 0; i < width * height; i++) {
 		const edgeMaskValue = edgeMaskData[i];
 		maskData[i * 4] = 255 - edgeMaskValue * 255;
@@ -34,7 +34,7 @@ export function addEdgeMaskToHeightmap(
 	for (let i = 0; i < width * height; i++) {
 		const heightmapValue = heightmap.source.data.data[i] / 255;
 		const edgeMaskValue = edgeMaskData[i];
-		heightmap.image.data[i] = 255; // heightmapValue * edgeMaskValue * 255;
+		heightmap.source.data.data[i] = heightmapValue * edgeMaskValue * 255;
 	}
 
 	return heightmap;

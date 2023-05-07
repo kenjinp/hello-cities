@@ -1,4 +1,5 @@
 export type MapSize = 'small' | 'medium' | 'large';
+export type MapElevation = 'flat' | 'hilly' | 'mountainous';
 
 export const MapSizeToNumber = {
 	small: 4_000,
@@ -6,12 +7,20 @@ export const MapSizeToNumber = {
 	large: 16_000
 };
 
+export const MapElevationToNumber = {
+	flat: 0.3,
+	hilly: 1,
+	mountainous: 2
+};
+
 export interface MapOptions {
 	size?: MapSize;
+	seed?: string;
 	numberOfStreams?: number;
 	numberOfRivers?: number;
 	numberOfHighways?: number;
 	coastPercentage?: number;
+	elevation?: MapElevation;
 }
 
 export interface GameOptions {

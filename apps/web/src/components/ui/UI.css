@@ -9,4 +9,5 @@
 	box-sizing: border-box;
 	justify-content: center;
 	align-items: center;
+	transition: all 0.2s ease-in-out;
 }
