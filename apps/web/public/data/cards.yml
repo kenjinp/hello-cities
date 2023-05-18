@@ -1,0 +1,11 @@
+---
+- id: farm
+  name: farm
+  description: 'Is it the case that the wheat has domesticated us?'
+  rarity: common
+  abilities: 1produces 1 food per term * fertility * acreage
+- id: grain silo
+  name: grain silo
+  description: A bountiful harvest means nothing if we can't store it properly.
+  rarity: common
+  abilities: save 50%

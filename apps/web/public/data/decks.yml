@@ -1,0 +1,7 @@
+---
+- id: founding deck
+  name: Founding Deck
+  description: Strike the earth!
+  cards:
+    - farm
+    - grain silo

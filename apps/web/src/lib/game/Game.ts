@@ -2,7 +2,7 @@ import * as j from '@javelin/ecs';
 import * as actions from './Game.actions';
 import { Turn } from './Game.entities';
 import { GameData, GameOptions } from './Game.types';
-import { processMessages, removeProcessedMessages } from './messages/Messages';
+import { processNextTurnCommand } from './commands/nextTurn';
 // All the things for the hello cities game
 // Without the data that the game will run on,
 // This is meant to be headless
@@ -19,11 +19,8 @@ export class HelloCitiesGame {
 
 		this.app.addResource(Turn, 0);
 
-		// process event messages
-		this.app.addSystemToGroup(j.Group.Early, processMessages);
-
-		// remove event messages
-		this.app.addSystemToGroup(j.Group.Late, removeProcessedMessages);
+		// process command
+		this.app.addSystemToGroup(j.Group.Late, processNextTurnCommand);
 
 		console.log('I am initializing!!!');
 	}

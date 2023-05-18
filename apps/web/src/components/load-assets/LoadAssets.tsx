@@ -3,6 +3,7 @@ import React from 'react';
 import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
 import { addAssetsToStore } from 'src/state/state';
 import { match } from 'ts-pattern';
+import YAML from 'yamljs';
 
 export interface LoadAssetsProps {
 	loading?: React.ReactElement;
@@ -17,18 +18,24 @@ export function LoadAssets({ loading, success, error }: LoadAssetsProps) {
 		queries: [
 			{
 				queryKey: ['cards', 1],
-				queryFn: () => fetch('/data/cards.json').then(res => res.json()),
+				queryFn: () =>
+					fetch('/data/cards.yml')
+						.then(res => res.text())
+						.then(body => YAML.parse(body)),
 				staleTime: Infinity
 			},
 			{
 				queryKey: ['decks', 2],
-				queryFn: () => fetch('/data/decks.json').then(res => res.json()),
+				queryFn: () =>
+					fetch('/data/decks.yml')
+						.then(res => res.text())
+						.then(body => YAML.parse(body)),
 				staleTime: Infinity
 			}
 		]
 	});
 
-	console.log(cardsQuery.isSuccess && deckQuery.isSuccess);
+	console.log(cardsQuery, deckQuery);
 
 	React.useEffect(() => {
 		match({

@@ -1,28 +1,31 @@
 /* eslint no-restricted-globals: 0 */
 
+import { heightGenerator } from '@components/terrain/Terrain.worker';
 import { MapElevationToNumber, MapOptions } from '@game/Game.types';
+import { remap } from '@hello-worlds/planets';
+import { getPointsFromDensityMap } from '@lib/map/pointSampling';
 import { MapGenerator } from '@lib/mutation/Map';
-import { NoiseMutator } from '@lib/mutation/Noise';
-import { PaddingMutator } from '@lib/mutation/Padding';
+import { HeightGeneratorMutator } from '@lib/mutation/Noise';
 import { renderMutation } from '@lib/mutation/renderer';
 import { Color } from 'three';
 import { match } from 'ts-pattern';
 
 async function makeMap(
-	ctx,
+	ctx: CanvasRenderingContext2D,
 	width: number,
 	height: number,
 	mapOptions: MapOptions & { seed: string }
 ) {
 	const generatedHeightmap = await renderMutation(
 		<MapGenerator width={width} height={height}>
-			<NoiseMutator
+			{/* <NoiseMutator
 				seed={mapOptions.seed}
 				height={MapElevationToNumber[mapOptions.elevation]}
 				scale={width / 2.5}
 				octaves={20}
 			/>
-			<PaddingMutator />
+			<PaddingMutator /> */}
+			<HeightGeneratorMutator generatorFunction={heightGenerator} mapOptions={mapOptions} />
 		</MapGenerator>
 	);
 
@@ -30,20 +33,28 @@ async function makeMap(
 	ctx.clearRect(0, 0, width, height);
 	ctx.fillStyle = defaultColor.getStyle();
 	ctx.fillRect(0, 0, width, height);
-	console.log({ ctx, width, height, mapOptions });
+	console.log({ ctx, width, height, mapOptions, generatedHeightmap });
 	const image = ctx.getImageData(0, 0, width, height);
 
 	ctx.fillStyle = `#${defaultColor.getHexString()}`;
 	ctx.fillRect(0, 0, 500, 1000);
 	const data = image.data;
 	const d = generatedHeightmap;
+	const multiplier = 1;
 
 	for (let x = 0; x < width; x++) {
 		for (let y = 0; y < height; y++) {
 			const i = x * 4 + y * 4 * width;
-			data[i] = d.source.data.data[i] * 255;
-			data[i + 1] = d.source.data.data[i + 1] * 255;
-			data[i + 2] = d.source.data.data[i + 2] * 255;
+			const val = remap(
+				d.source.data.data[i] * multiplier,
+				-MapElevationToNumber['mountainous'] * 1000,
+				MapElevationToNumber['mountainous'] * 1000,
+				0,
+				255
+			);
+			data[i] = val;
+			data[i + 1] = val;
+			data[i + 2] = val;
 			data[i + 3] = 255; // I am the alpha
 		}
 	}
@@ -55,6 +66,16 @@ async function makeMap(
 	ctx.font = '14px Arial';
 	ctx.fillStyle = new Color(Math.random() * 0xffffff).getStyle();
 	ctx.fillText(mapOptions.size, width / 2, height / 2);
+
+	const points = getPointsFromDensityMap(generatedHeightmap, width, height);
+	console.log({ points });
+	points.forEach(v => {
+		ctx.beginPath();
+		ctx.arc(v.x, v.y, 3, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.fillStyle = new Color('blue').getStyle();
+		ctx.fill();
+	});
 }
 
 let canvas: HTMLCanvasElement;

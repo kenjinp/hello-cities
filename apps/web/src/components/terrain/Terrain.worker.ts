@@ -13,7 +13,7 @@ export type ThreadParams = {
 	seed: string;
 };
 
-const heightGenerator: ChunkGenerator3Initializer<ThreadParams, number> = ({
+export const heightGenerator: ChunkGenerator3Initializer<ThreadParams, number> = ({
 	data: { seed, elevation }
 }: {
 	data: MapOptions;
@@ -34,14 +34,19 @@ const heightGenerator: ChunkGenerator3Initializer<ThreadParams, number> = ({
 		scale: 3000
 	});
 
+	console.log(seed, MapElevationToNumber[elevation] * 1000, elevation);
+
 	return ({ input }) => {
 		const w = warp.get(input.x, input.y, input.z);
 		const m = mountains.get(input.x + w, input.y + w, input.z + w);
+		if (!Number.isFinite(m)) {
+			throw new Error(`Invalid height value: ${m}`);
+		}
 		return m;
 	};
 };
 
-const colorGenerator: ChunkGenerator3Initializer<
+export const colorGenerator: ChunkGenerator3Initializer<
 	ThreadParams,
 	Color | ColorArrayWithAlpha
 > = props => {

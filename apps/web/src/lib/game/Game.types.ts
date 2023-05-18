@@ -27,6 +27,14 @@ export interface GameOptions {
 	mapOptions: MapOptions;
 }
 
+export enum Rarity {
+	COMMON = 'common',
+	UNCOMMON = 'uncommon',
+	RARE = 'rare',
+	EPIC = 'epic',
+	LEGENDARY = 'legendary'
+}
+
 export interface Card {
 	id: string;
 	name: string;
@@ -34,6 +42,7 @@ export interface Card {
 	type?: string;
 	cost?: number;
 	image?: string;
+	rarity?: Rarity;
 	abilities?: string[];
 }
 

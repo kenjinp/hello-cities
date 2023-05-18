@@ -4,16 +4,23 @@ import { DataTexture, Vector2 } from 'three';
 export function getPointsFromDensityMap(
 	densityMap: DataTexture,
 	width: number,
-	height: number,
-	resolution: number
+	height: number
+	// resolution: number
 ): Vector2[] {
 	const numPoints = 1000;
 	function getDataTextureDensityValue(x: number, y: number) {
 		const pixelRedIndex = (Math.round(x) + Math.round(y) * width) * 4;
-		const val = densityMap.source.data.data[pixelRedIndex] / 255;
+		const val = -densityMap.source.data.data[pixelRedIndex] / 255;
+		// const remapped = remap(
+		// 	val,
+		// 	-MapElevationToNumber['mountainous'] * 1000,
+		// 	MapElevationToNumber['mountainous'] * 1000,
+		// 	0,
+		// 	255
+		// );
 
 		// map the value to 0-1 and apply Math.pow for flavor
-		return Math.pow(1 - val, 5);
+		return Math.pow(1 - val, 4);
 	}
 
 	// const points: Vector2[] = [];
@@ -31,7 +38,6 @@ export function getPointsFromDensityMap(
 	// 	}
 	// }
 	// return points;
-
 	var p = new PoissonDiskSampling({
 		shape: [width, height],
 		minDistance: 3,

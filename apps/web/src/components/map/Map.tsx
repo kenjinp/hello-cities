@@ -16,7 +16,7 @@ function RegionMapInner(
 	console.log({ props });
 
 	React.useEffect(() => {
-		console.log("rerender canvas")
+		console.log('rerender canvas');
 		const canvasRef = ref.current;
 		const offscreenRef = offscreen.current;
 		if (canvasRef) {
@@ -74,8 +74,8 @@ function RegionMapInner(
 					{loading && <div>Loading...</div>}
 				</div>
 				<canvas
-					width="500"
-					height="250"
+					width={500}
+					height={500}
 					style={{
 						width: '100%',
 						height: '100%',

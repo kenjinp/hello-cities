@@ -23,8 +23,8 @@ export const Button: React.FC<
 			className={variant}
 			onMouseEnter={() => playHover()}
 			onMouseLeave={() => stopHover()}
-			{...button}
 			onClick={handleClick}
+			{...button}
 		>
 			{children}
 		</button>

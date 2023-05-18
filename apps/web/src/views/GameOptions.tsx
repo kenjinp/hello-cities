@@ -52,7 +52,7 @@ export const GameOptions: React.FC = () => {
 					<div className="options">
 						<h1>New Game</h1>
 						<div style={{ flexGrow: 1, display: 'flex', width: '100%', padding: ' 1rem' }}>
-							<RegionMap size={mapSize as MapSize} seed={seed} />
+							<RegionMap size={mapSize as MapSize} seed={seed} elevation={mapElevation} />
 							<div style={{ flexGrow: 1, padding: '0 1rem' }}>
 								<h2>Map Options</h2>
 								<fieldset>
