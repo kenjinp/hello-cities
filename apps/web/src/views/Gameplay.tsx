@@ -1,9 +1,13 @@
-import { Button } from '@components/button/Button';
+import { Deck } from '@components/deck/Deck';
+import { DiscardPile } from '@components/discard-pile/DiscardPile';
+import { EndTurnButton } from '@components/end-turn-button/EndTurnButton';
+import { Event as ReactEvent } from '@components/event/Event';
+import { Hand } from '@components/hand/Hand';
+import { ResourceBar } from '@components/resource-bar/ResourceBar';
 import { UIIn } from '@components/ui/UI';
-import { Turn } from '@game/Game.entities';
 import { useHelloCitiesGame } from '@game/Game.react';
-import { Resource } from '@javelin/ecs/dist/declarations/src/resource';
-import { useSystem } from '@javelin/react';
+import { Event } from '@game/entities/events/Events';
+import { Entities } from '@javelin/react';
 import { Html } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { GameFSM } from '@state/Game.FSM';
@@ -34,38 +38,13 @@ function Game() {
 	return null;
 }
 
-function NextTurnButton() {
-	const { game } = useHelloCitiesGame();
-
-	const handleNextTurn = () => {
-		game?.doAction('doNextTurn');
-	};
-
-	const turn = useResource(Turn);
-
-	React.useEffect(() => {
-		if (turn > 10) {
-			GameFSM.transition('gameOver');
-		}
-	}, [turn]);
-
+const Events = () => {
 	return (
-		<Button variant="primary" onClick={handleNextTurn}>
-			Next Turn | {turn}
-		</Button>
+		<Entities query={Event}>
+			<ReactEvent />
+		</Entities>
 	);
-}
-
-function useResource<T>(resource: Resource<T>) {
-	const [value, setValue] = React.useState<T>(null as any);
-	useSystem(world => {
-		const v = world.getResource(resource);
-		if (v !== value) {
-			setValue(v);
-		}
-	});
-	return value;
-}
+};
 
 export const Gameplay: React.FC = () => {
 	// const { assets } = useStore(store);
@@ -86,8 +65,27 @@ export const Gameplay: React.FC = () => {
 			<Html></Html>
 			<Game />
 			<UIIn>
-				<h1>Game!!</h1>
-				<NextTurnButton />
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column'
+					}}
+				>
+					<div>
+						<ResourceBar />
+						<br />
+						<br />
+					</div>
+					<Events />
+					<Hand />
+					<footer>
+						<Deck />
+						|
+						<DiscardPile />
+						|
+						<EndTurnButton />
+					</footer>
+				</div>
 			</UIIn>
 		</>
 	);

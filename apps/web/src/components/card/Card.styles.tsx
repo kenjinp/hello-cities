@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CardContainer = styled.div`
 	aspect-ratio: 2 / 3;
 	background: black;
-	max-width: 500px;
+	height: 100%;
 	border-radius: 1em;
 `;
 

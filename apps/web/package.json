@@ -12,6 +12,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.0.8",
+    "@dnd-kit/modifiers": "^6.0.1",
     "@hello-worlds/core": "^0.0.8",
     "@hello-worlds/planets": "^0.0.16",
     "@hello-worlds/react": "^0.0.17",
