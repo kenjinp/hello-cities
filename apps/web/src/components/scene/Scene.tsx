@@ -29,6 +29,7 @@ const cameraQuat = new Quaternion(
 export const Scene: React.FC<PropsWithChildren> = ({ children }) => {
 	return (
 		<Canvas
+			id="game-canvas"
 			gl={{ logarithmicDepthBuffer: true }}
 			camera={{
 				near: 0.01,

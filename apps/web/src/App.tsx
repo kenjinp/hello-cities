@@ -78,10 +78,10 @@ function App() {
 							<GameViews />
 						</GameContextBridge>
 					</Scene>
-					<UIOut />
 					<UIIn>
 						<LoadAssets key="banana" />
 					</UIIn>
+					<UIOut />
 				</HelloCitiesGameWrapper>
 			</QueryClientProvider>
 		</div>

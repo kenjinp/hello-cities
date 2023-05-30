@@ -1,4 +1,5 @@
 import { Card } from '@components/card/Card';
+import Draggable from '@components/draggable/Draggable';
 import { Hand as HandType } from '@game/Game.entities';
 import * as j from '@javelin/ecs';
 import { Entity, useSystem } from '@javelin/react';
@@ -21,7 +22,14 @@ export const Hand: React.FC = () => {
 			{value.map(entityId => {
 				return (
 					<Entity entity={entityId as j.Entity} key={entityId}>
-						<Card id={entityId.toString()} name={entityId.toString()} description="" />
+						<Draggable data={{ entityId }}>
+							{props => {
+								console.log(props);
+								return props.isDragging ? null : (
+									<Card id={entityId.toString()} name={entityId.toString()} description="" />
+								);
+							}}
+						</Draggable>
 					</Entity>
 				);
 			})}
